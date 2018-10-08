@@ -28,3 +28,16 @@ dependencies {
     compile 'com.android.support:appcompat-v7:26.1.0'
     testCompile 'junit:junit:4.12'
 }
+
+task deleteJar(type: Delete){
+    delete 'libs/bleframework.jar'
+}
+
+task createJar(type: Copy){
+    from('build/intermediates/bundles/release')
+    into('libs/')
+    include('classes.jar')
+    rename('classes.jar', 'bleframework.jar')
+}
+
+createJar.dependsOn(deleteJar, build)
